@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: ecommerce
+  namespace: ecommerce
+
+spec:
+
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: ecommerce
+
+  template:
+
+    metadata:
+      labels:
+        app: ecommerce
+
+    spec:
+
+      containers:
+
+      - name: ecommerce
+
+        image: 123456789012.dkr.ecr.ap-south-1.amazonaws.com/ecommerce:v1
+
+        ports:
+        - containerPort: 8080
+
+        envFrom:
+
+        - configMapRef:
+            name: ecommerce-config
+
+        env:
+
+          - name: PORT
+            valueFrom:
+              secretKeyRef:
+                name: backend-secret
+                key: PORT
+
+          - name: MONGODB_URI
+            valueFrom:
+              secretKeyRef:
+                name: backend-secret
+                key: MONGODB_URI
+
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: backend-secret
+                key: JWT_SECRET
+
+          - name: NODE_ENV
+            valueFrom:
+              secretKeyRef:
+                name: backend-secret
+                key: NODE_ENV
+
+          - name: LOG_LEVEL
+            valueFrom:
+              secretKeyRef:
+                name: backend-secret
+                key: LOG_LEVEL
+
+        resources:
+
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+
+        readinessProbe:
+
+          httpGet:
+            path: /health
+            port: 8080
+
+        livenessProbe:
+
+          httpGet:
+            path: /health
+            port: 8080
