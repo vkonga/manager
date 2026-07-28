@@ -3,7 +3,7 @@ kind: Service
 
 metadata:
   name: ecommerce-service
-  namespace: ecommerce
+  namespace: amazon-clone
 
 spec:
 

@@ -3,7 +3,7 @@ kind: ConfigMap
 
 metadata:
   name: ecommerce-config
-  namespace: ecommerce
+  namespace: amazon-clone
 
 data:
 

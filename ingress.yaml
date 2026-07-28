@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
 
   name: ecommerce-ingress
-  namespace: ecommerce
+  namespace: amazon-clone
 
   annotations:
 

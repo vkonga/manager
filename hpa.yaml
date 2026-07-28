@@ -3,7 +3,7 @@ kind: HorizontalPodAutoscaler
 
 metadata:
   name: ecommerce-hpa
-  namespace: ecommerce
+  namespace: amazon-clone
 
 spec:
 
